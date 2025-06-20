@@ -11,16 +11,17 @@ app.use(express.static('public'))
 
 app.ws('/ws', (ws, req) => {
   connects.push(ws)
-  let data
+
+  ws.on('message', (message) => {
+    console.log('Received:', message)
+
+    let data
   try{
     data=JSON.parse(message)
   }catch(err){
     console.error('Invalid JSON',message)
     return
   }
-
-  ws.on('message', (message) => {
-    console.log('Received:', message)
 
     const weather=['晴れ','曇り','雨','雪','雷','強風']
     const w=weather[Math.floor(Math.random()*weather.length)]
