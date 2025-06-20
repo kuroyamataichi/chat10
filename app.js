@@ -15,10 +15,11 @@ app.ws('/ws', (ws, req) => {
   ws.on('message', (message) => {
     console.log('Received:', message)
 
+    const weather=["晴れ","曇り","雨","雪","雷","強風"]
     connects.forEach((socket) => {
       if (socket.readyState === 1) {
         // Check if the connection is open
-        socket.send(message)
+        socket.send(messageの天気はweather[Math.floor(NavigationHistoryEntry.random()*weather.length)]です)
       }
     })
   })
