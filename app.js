@@ -19,7 +19,7 @@ app.ws('/ws', (ws, req) => {
     connects.forEach((socket) => {
       if (socket.readyState === 1) {
         // Check if the connection is open
-        socket.send(messageの天気はweather[Math.floor(NavigationHistoryEntry.random()*weather.length)]です)
+        socket.send("messageの天気はweather"[Math.floor(NavigationHistoryEntry.random()*weather.length)])
       }
     })
   })
