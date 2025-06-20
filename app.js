@@ -11,17 +11,27 @@ app.use(express.static('public'))
 
 app.ws('/ws', (ws, req) => {
   connects.push(ws)
+  let data
+  try{
+    data=JSON.parse(message)
+  }catch(err){
+    console.error('Invalid JSON',message)
+    return
+  }
 
   ws.on('message', (message) => {
     console.log('Received:', message)
 
     const weather=['晴れ','曇り','雨','雪','雷','強風']
     const w=weather[Math.floor(Math.random()*weather.length)]
-    const ww=`${message}の天気は${w}です`
+    const ww={
+      id:data.id,text:`${message}の天気は${w}です`
+    }
+    const r=JSON.stringify(ww)
     connects.forEach((socket) => {
       if (socket.readyState === 1) {
         // Check if the connection is open
-        socket.send(ww)
+        socket.send(r)
       }
     })
   })
